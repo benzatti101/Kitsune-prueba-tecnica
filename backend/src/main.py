@@ -1,6 +1,6 @@
-from src.api.data_retriever import DataRetriever
-from src.database.database_manager import DatabaseManager
-from src.models.data_model import DataModel
+from backend.src.api.data_retriever import DataRetriever
+from backend.src.database.database_manager import DatabaseManager
+from backend.src.models.data_model import DataModel
 
 
 def main():

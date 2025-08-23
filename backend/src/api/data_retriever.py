@@ -1,5 +1,4 @@
 import requests
-
 # Clase responsable de obtener datos desde el endpoint público
 class DataRetriever:
     # URL del endpoint con límite de 20 registros

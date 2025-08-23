@@ -1,5 +1,5 @@
 import sqlite3
-from src.models.data_model import DataModel
+from backend.src.models.data_model import DataModel
 
 class DatabaseManager:
     def __init__(self, db_name="local_data.db"):

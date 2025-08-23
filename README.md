@@ -22,21 +22,22 @@ source .venv/bin/activate
 Esto asegura que las dependencias se instalen de forma aislada para tu proyecto.
 
 # Estructura del proyecto
-- src/api/data_retriever.py: Se encarga de obtener datos de un endpoint publico (https://www.datos.gov.co/resource/7q36-mkp5.json?$limit=20)
-- src/models/data_model.py*: Transformar y limpiar los datos antes de guardarlos.
-- src/database/database_manager.py: Inserción/Borrado/Creación SQLite local.
-- src/main.py: Script principal de extracción, transformación y listado de los datos.
+- backend/src/api/data_retriever.py: Se encarga de obtener datos de un endpoint publico (https://www.datos.gov.co/resource/7q36-mkp5.json?$limit=20)
+- backend/src/models/data_model.py*: Transformar y limpiar los datos antes de guardarlos.
+- backend/src/database/database_manager.py: Inserción/Borrado/Creación SQLite local.
+- backend/src/main.py: Script principal de extracción, transformación y listado de los datos.
+- backend/src/api/api_server.py: Se encarga de ejecutar el API y realizar consultas al API con peticiones GET (Trae todos los datos, filtrar por ID, buscar por palabra clave del titulo)
 
 # Flujo de datos
 1. Obtención: Usamos el endpoint público para traer los primeros 20 registros en formato JSON.
 2. Transformación: El modelo limpia los datos, excluye campos basura y prepara los valores para la base de datos.
-3. Almacenamiento: Los datos se guardan en una base de datos SQLite local y se manejan los nombres de las columnas sin caracteres especiales en la base de datos, y incluyendo los espacios que se reemplazaron por "_".
+3. Almacenamiento: Los datos se guardan en una base de datos SQLite local y se manejan los nombres de las columnas sin caracteres especiales en la base de datos, ya que el API publico lo maneja con "_" caracteres especiales y espacios.
 
 # Cómo probar el proyecto P1
 1. Instala las dependencias:
 pip install requests
 2. Ejecuta el script principal para poblar la base de datos:
-python -m src.main (Se uso este comando por la estructura como se manejo el proyecto, ya que al aplicar los principios SOLID de buenas practicas se manejo por carpetas)
+python -m backend.src.main (Se uso este comando por la estructura como se manejo el proyecto, ya que al aplicar los principios SOLID de buenas practicas se manejo por carpetas, se realiza el comando por los import de los modulos, se puede cambiar dependiendo de los import de cada modulo y sobre en que parte de la carpeta se este ejecutando)
 Nota comando: Al tener estructurado el proyecto por modulos se debera ejecutar el comando para que identifique las diferentes import realizado sobre los modulos del proyecto para que asi se pueda ejecutar el Main.
 3. Si se desea consulta la basse de datos generada, se debera instalar la extension de SQLite en VS code y 
 4. Haz clic derecho sobre el archivo "local_data.db" y selecciona "Open Database".
@@ -44,7 +45,6 @@ Nota comando: Al tener estructurado el proyecto por modulos se debera ejecutar e
  SELECT * FROM datos;
 
 # P2
-
 En la segunda parte del proyecto se implementa una API con FastAPI para consultar y filtrar los datos almacenados en la base de datos SQLite.
 
 # Cómo ejecutar la API
@@ -52,14 +52,14 @@ En la segunda parte del proyecto se implementa una API con FastAPI para consulta
 2. Instala las dependencias necesarias para la API:
    pip install fastapi uvicorn
 3. Ejecuta el servidor FastAPI desde la raíz del proyecto:
-   uvicorn src.api_server:app --reload
+   uvicorn backend.src.api.api_server:app --reload
 # Endpoints
 - Listar todos los registros: GET /datos
 - Consultar por ID: GET /datos/{id}
-- Filtrar por año y/o palabra clave: 
-GET /datos/especificos/filtrar?fecha=2014&palabra=agua
-/datos/especificos/filtrar?palabra=agua
-/datos/especificos/filtrar?fecha=2014
+- Filtrar por año y/o palabra clave:
+GET 
+/datos/especificos/filtrar
+Ej: http://127.0.0.1:8000/datos/especificos/filtrar?columna=pa_s_residencia&palabra=CHILE
 # Consideraciones
 - La API consulta directamente la base de datos SQLite generada en la p1.
 - Se puede usar Postman o tu navegador para probar los endpoints.
