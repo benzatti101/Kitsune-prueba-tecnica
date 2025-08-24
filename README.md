@@ -104,6 +104,54 @@ docker-compose down
 - Frontend: yarn serve (se ejecuta por separado)
 - APP: http://localhost:8080/
 
+---
+
+# 🤖 Uso de Inteligencia Artificial
+
+## Herramientas IA Utilizadas
+
+En el desarrollo de este proyecto se emplearon herramientas de inteligencia artificial **a través de GitHub Copilot** para optimizar la estructura, lógica y aplicación de buenas prácticas:
+
+### **Claude Sonnet 3.5  - Frontend y Arquitectura
+- **Uso principal**: Desarrollo del frontend Vue.js y estructuración del proyecto
+- **Eficiencia aplicada**:
+  - Configuración óptima de Vue CLI con mejores prácticas
+  - Estructuración de componentes siguiendo principios de composición
+  - Optimización de la arquitectura de carpetas y módulos
+  - Implementación de patrones de diseño para mantenibilidad
+
+### **GPT-4o  - Backend y DevOps
+- **Uso principal**: Desarrollo del backend FastAPI y configuración Docker
+- **Eficiencia aplicada**:
+  - Implementación de principios SOLID en la estructura del backend
+  - Separación de responsabilidades entre ETL, API y modelos de datos
+  - Configuración profesional de Docker y Docker Compose
+  - Optimización de consultas SQLite y manejo de errores
+  - Documentación técnica y buenas prácticas de desarrollo
+
+## Impacto en el Proyecto
+
+### **Estructura y Organización**
+- Aplicación de **principios SOLID** para código mantenible
+- Separación clara de **responsabilidades** (ETL, API, DB, Frontend)
+- **Modularización** apropiada del código Python
+- Configuración de **entornos virtuales** y dependencias
+
+### **Buenas Prácticas Implementadas**
+- **Clean Code**: Nombres descriptivos, funciones pequeñas y enfocadas
+- **Error Handling**: Manejo apropiado de excepciones y validaciones
+- **Documentation**: Comentarios claros y README comprensivo
+- **DevOps**: Dockerización para portabilidad y facilidad de despliegue
+- **API Design**: Endpoints RESTful con documentación automática
+
+### **Eficiencia en Desarrollo**
+- **Aceleración**: Reducción significativa en tiempo de desarrollo
+- **Calidad**: Implementación de patrones probados desde el inicio
+- **Escalabilidad**: Estructura preparada para crecimiento futuro
+- **Mantenibilidad**: Código limpio y bien documentado
+
+La IA fue utilizada a través de GitHub Copilot como herramienta de consultoría técnica y aceleración de desarrollo, manteniendo siempre el control sobre las decisiones arquitectónicas y la comprensión completa del código implementado.
+
 
 
 
