@@ -1,0 +1,9 @@
+# Dependencias para la API FastAPI
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Dependencias para ETL 
+requests>=2.31.0 
+
+# Base de datos
+# SQLite3 viene incluido con Python, no requiere instalación adicional

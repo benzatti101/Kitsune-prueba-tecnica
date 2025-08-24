@@ -1,6 +1,18 @@
 # Prueba tecnica Ing Datos - Kitsune
 
-# Ejecución entorno virtual
+# Estructura del proyecto
+- Backend/ETL: Extracción, tranformación y cargue.
+- Backend/API: Endpoints consulta de datos.
+- Frontend: Interfaz.
+
+# Flujo de datos
+1. Obtención: Usamos el endpoint público para traer los primeros 20 registros en formato JSON.
+2. Transformación: El modelo limpia los datos, excluye campos basura y prepara los valores para la base de datos.
+3. Almacenamiento: Los datos se guardan en una base de datos SQLite local y se manejan los nombres de las columnas sin caracteres especiales en la base de datos, ya que el API publico lo maneja con "_" caracteres especiales y espacios.
+
+# Cómo probar el proyecto P1
+Se debe verificar en primera instancia que el proyecto se encuentre clonado desde su repositorio de github compartido para sus respectivas pruebas, y una vez clonado tener el entorno activo para sus respectivas instalaciónes.
+0. Ejecución entorno virtual
 Antes de instalar dependencias o ejecutar el proyecto, se debe revisar si existe el .venv en la raíz. Si no existe, se debera crear:
 
 En Windows (cmd o PowerShell):
@@ -20,49 +32,40 @@ source .venv/bin/activate
 
 
 Esto asegura que las dependencias se instalen de forma aislada para tu proyecto.
-
-# Estructura del proyecto
-- Backend/ETL: Extracción, tranformación y cargue.
-- Backend/API: Endpoints consulta de datos.
-- Frontend: Interfaz.
-
-# Flujo de datos
-1. Obtención: Usamos el endpoint público para traer los primeros 20 registros en formato JSON.
-2. Transformación: El modelo limpia los datos, excluye campos basura y prepara los valores para la base de datos.
-3. Almacenamiento: Los datos se guardan en una base de datos SQLite local y se manejan los nombres de las columnas sin caracteres especiales en la base de datos, ya que el API publico lo maneja con "_" caracteres especiales y espacios.
-
-# Cómo probar el proyecto P1
-1. Instala las dependencias:
+1. Instalar las dependencias:
 pip install requests
 2. Ejecuta el script principal para poblar la base de datos:
-python -m backend.src.main (Se uso este comando por la estructura como se manejo el proyecto, ya que al aplicar los principios SOLID de buenas practicas se manejo por carpetas, se realiza el comando por los import de los modulos, se puede cambiar dependiendo de los import de cada modulo y sobre en que parte de la carpeta se este ejecutando)
+python -m backend.src.main 
+(Se uso este comando por la estructura como se manejo el proyecto, ya que al aplicar los principios SOLID de buenas practicas se manejo por carpetas, se realiza el comando por los import de los modulos, se puede cambiar dependiendo de los import de cada modulo)
 Nota comando: Al tener estructurado el proyecto por modulos se debera ejecutar el comando para que identifique las diferentes import realizado sobre los modulos del proyecto para que asi se pueda ejecutar el Main.
-3. Si se desea consulta la basse de datos generada, se debera instalar la extension de SQLite en VS code y 
-4. Haz clic derecho sobre el archivo "local_data.db" y selecciona "Open Database".
+3. Si se desea consulta la base de datos generada, se debera instalar la extension de SQLite en VS code
+4. Dar clic derecho sobre el archivo "local_data.db" y selecciona "Open Database".
 5. Luego se debe dar click "New Query" y se debera ejecutar "Run Query" el siguiente SQL:
  SELECT * FROM datos;
+6. Verificar extracción/transformación/cargue de datos extraidos de la API Publica. 
 
 # P2: API
 En la segunda parte del proyecto se implementa una API con FastAPI para consultar y filtrar los datos almacenados en la base de datos SQLite.
 
 # Cómo ejecutar la API
+0. Si se realizara con Docker se debera saltar los pasos a continuación y pasar al P4 y seguir los pasos de ejecución.
 1. Activar el entorno virtual (.venv) antes de instalar dependencias (ver instrucciones arriba).
 2. Instala las dependencias necesarias para la API:
    pip install fastapi uvicorn
 3. Ejecuta el servidor FastAPI desde la raíz del proyecto:
-   uvicorn backend.src.api.api_server:app --reload
+uvicorn backend.src.api.api_server:app --reload
 # Endpoints
 - Listar todos los registros: GET /datos
 - Consultar por ID: GET /datos/{id}
 - Filtrar por año y/o palabra clave:
 GET 
 /datos/especificos/filtrar
-Ej: http://127.0.0.1:8000/datos/especificos/filtrar?columna=pa_s_residencia&palabra=CHILE
+Ej: http://localhost:8000/datos/especificos/filtrar?columna=pa_s_residencia&palabra=CHILE
 # Consideraciones
 - La API consulta directamente la base de datos SQLite generada en la p1.
-- Se puede usar Postman o tu navegador para probar los endpoints.
-- Si modificas la estructura de la base de datos, asegúrate de actualizar los filtros en el archivo api_server.py.
-- El endpoint de filtro permite combinar búsqueda por año y por palabra clave en cualquier campo.
+- Se puede usar Postman o el navegador para probar los endpoints.
+- Si se modifica la estructura de la base de datos, no tendra problema ya que el API es mantenible a posibles cambios, el unico detalle es si se cambia el nombre de la BD se debera realiza rel respectivo ajuste en api_server.py
+
 
 # P3: FrontEnd
 
@@ -73,12 +76,35 @@ Ej: http://127.0.0.1:8000/datos/especificos/filtrar?columna=pa_s_residencia&pala
 npm install -g @vue/cli
 Vue 3
 Yarn
-3. Iniciar el servidor de desarrollo:
+3. Iniciar el servidor front
 yarn serve
-Esto genera la estructura del proyecto Vue en la carpeta frontend y deja todo listo para desarrollar la interfaz.
 
-## Siguiente paso
-- Crear los componentes para mostrar los registros en una tabla, buscar por palabra clave y ver detalles de un registro.
+# P4: Docker Compose  (Bonus)
+
+# 🐳 Ejecución con Docker
+
+### Prerequisitos
+- Docker instalado y configurado.
+- Base de datos generada: python -m backend.src.main - P1.
+
+### Comandos
+
+1. Construir y levantar API:
+docker-compose up --build
+2. Ejecutar en segundo plano:
+docker-compose up -d
+3. Ver logs:
+docker-compose logs -f api
+4. Detener:
+docker-compose down
+
+# Servicios
+- API: http://localhost:8000/datos (Ejecución por docker)
+- Docs: http://localhost:8000/docs
+- Frontend: yarn serve (se ejecuta por separado)
+- APP: http://localhost:8080/
+
+
 
 
 
