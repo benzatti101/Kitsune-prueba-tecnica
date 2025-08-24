@@ -1,7 +1,7 @@
 import json
 
 
-class DataModel:
+class DataTransformer:
     def __init__(self, data: dict):
         # Inicializa el diccionario interno para almacenar los datos procesados
         self.data = {}

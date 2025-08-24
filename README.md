@@ -22,11 +22,9 @@ source .venv/bin/activate
 Esto asegura que las dependencias se instalen de forma aislada para tu proyecto.
 
 # Estructura del proyecto
-- backend/src/api/data_retriever.py: Se encarga de obtener datos de un endpoint publico (https://www.datos.gov.co/resource/7q36-mkp5.json?$limit=20)
-- backend/src/models/data_model.py*: Transformar y limpiar los datos antes de guardarlos.
-- backend/src/database/database_manager.py: Inserción/Borrado/Creación SQLite local.
-- backend/src/main.py: Script principal de extracción, transformación y listado de los datos.
-- backend/src/api/api_server.py: Se encarga de ejecutar el API y realizar consultas al API con peticiones GET (Trae todos los datos, filtrar por ID, buscar por palabra clave del titulo)
+- Backend/ETL: Extracción, tranformación y cargue.
+- Backend/API: Endpoints consulta de datos.
+- Frontend: Interfaz.
 
 # Flujo de datos
 1. Obtención: Usamos el endpoint público para traer los primeros 20 registros en formato JSON.
@@ -44,7 +42,7 @@ Nota comando: Al tener estructurado el proyecto por modulos se debera ejecutar e
 5. Luego se debe dar click "New Query" y se debera ejecutar "Run Query" el siguiente SQL:
  SELECT * FROM datos;
 
-# P2
+# P2: API
 En la segunda parte del proyecto se implementa una API con FastAPI para consultar y filtrar los datos almacenados en la base de datos SQLite.
 
 # Cómo ejecutar la API
@@ -66,7 +64,21 @@ Ej: http://127.0.0.1:8000/datos/especificos/filtrar?columna=pa_s_residencia&pala
 - Si modificas la estructura de la base de datos, asegúrate de actualizar los filtros en el archivo api_server.py.
 - El endpoint de filtro permite combinar búsqueda por año y por palabra clave en cualquier campo.
 
+# P3: FrontEnd
 
+# Instalación y configuración del frontend para usar Vue y Vite
+
+1. Instalar Node.js y npm desde https://nodejs.org/ (requisito para usar Vue).
+2. Instalar CLI vue dentro de este comando se selecciona el package manager yarn o en su preferencia npm en este caso fue con yarn:
+npm install -g @vue/cli
+Vue 3
+Yarn
+3. Iniciar el servidor de desarrollo:
+yarn serve
+Esto genera la estructura del proyecto Vue en la carpeta frontend y deja todo listo para desarrollar la interfaz.
+
+## Siguiente paso
+- Crear los componentes para mostrar los registros en una tabla, buscar por palabra clave y ver detalles de un registro.
 
 
 

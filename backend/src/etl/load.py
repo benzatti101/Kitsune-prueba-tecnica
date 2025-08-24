@@ -1,7 +1,7 @@
 import sqlite3
-from backend.src.models.data_model import DataModel
+from backend.src.etl.transform import DataTransformer
 
-class DatabaseManager:
+class DataLoader:
     def __init__(self, db_name="local_data.db"):
         self.db_name = db_name
         self.conn = None
@@ -11,7 +11,7 @@ class DatabaseManager:
         self.conn = sqlite3.connect(self.db_name)
 
     def create_table(self, columns):
-        # Crea la tabla 'datos' con columnas dinámicas según los títulos del JSON
+        # Crea la tabla 'datos' con columnas dinámicas usando nombres originales (sin espacios)
         cursor = self.conn.cursor()
         columns_def = ', '.join([f'{col} TEXT' for col in columns])  # Define cada columna como texto
         cursor.execute(f'''
@@ -22,10 +22,10 @@ class DatabaseManager:
         ''')  # Crea la tabla si no existe
         self.conn.commit()  # Guarda los cambios
 
-    def insert_data(self, model: DataModel):
-        # Inserta un registro en la tabla 'datos' usando los datos procesados por el modelo
+    def insert_data(self, model: DataTransformer):
+        # Inserta un registro en la tabla 'datos' usando los datos originales (sin transformar nombres)
         cursor = self.conn.cursor()
-        keys = list(model.data.keys())  # Obtiene los nombres de las columnas
+        keys = list(model.data.keys())  # Obtiene los nombres de las columnas originales
         values = [str(model.data.get(k, '')) for k in keys]  # Obtiene los valores a insertar
         columns_str = ', '.join(keys)
         placeholders = ', '.join(['?' for _ in keys])  # Prepara los placeholders para la consulta

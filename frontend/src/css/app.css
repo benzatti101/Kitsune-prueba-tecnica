@@ -1,0 +1,27 @@
+/* ==========================================================================
+   APP COMPONENT STYLES
+   ========================================================================== */
+
+#app {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  font-family: var(--font-family);
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+}
+
+/* Responsive app layout */
+@media (max-width: 768px) {
+  .main-content {
+    padding: var(--spacing-md);
+  }
+}

@@ -1,18 +1,18 @@
-from backend.src.api.data_retriever import DataRetriever
-from backend.src.database.database_manager import DatabaseManager
-from backend.src.models.data_model import DataModel
+from backend.src.etl.extract import DataExtractor
+from backend.src.etl.load import DataLoader
+from backend.src.etl.transform import DataTransformer
 
 
 def main():
     # Obtener datos del endpoint
-    retriever = DataRetriever()
+    retriever = DataExtractor()
     data = retriever.fetch_data()
 
     # Inicializar y conectar la base de datos
-    db_manager = DatabaseManager()
+    db_manager = DataLoader()
     db_manager.connect()
 
-    # Crear la tabla solo una vez usando los títulos del primer elemento
+    # Crear la tabla solo una vez usando los nombres originales del JSON
     if data:
         columns = list(data[0].keys())
         db_manager.create_table(columns)
@@ -20,7 +20,7 @@ def main():
 
     # Procesar e insertar los datos
     for item in data:
-        model = DataModel(item)
+        model = DataTransformer(item)
         db_manager.insert_data(model)
 
     print("Datos insertados correctamente en la base de datos.")
