@@ -71,12 +71,15 @@ Ej: http://localhost:8000/datos/especificos/filtrar?columna=pa_s_residencia&pala
 
 # Instalación y configuración del frontend para usar Vue y Vite
 
-1. Instalar Node.js y npm desde https://nodejs.org/ (requisito para usar Vue).
-2. Instalar CLI vue dentro de este comando se selecciona el package manager yarn o en su preferencia npm en este caso fue con yarn:
+1. Instalar Node.js https://nodejs.org/ (requisito para usar Vue).
+2. Luego ejecutar en la consola: 
+npm install
+3. Instalar CLI vue dentro de este comando se selecciona el package manager yarn o en su preferencia npm en este caso fue con yarn:
 npm install -g @vue/cli
 Vue 3
 Yarn
-3. Iniciar el servidor front
+4. Ingresar a la carpeta de FrontEnd (Cd frontend) y iniciar el servidor front (Dos opciones dependiendo de la preferencia de ejecución):
+npm run serve
 yarn serve
 
 # P4: Docker Compose  (Bonus)
